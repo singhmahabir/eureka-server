@@ -1,0 +1,31 @@
+info:
+  name: '@project.artifactId@'
+  description: '@project.description@'
+  version: '@project.version@'
+
+management:
+  security:
+    enabled: false
+#spring:
+#  boot:
+#    admin:
+#      url: http://localhost:1111
+#      username: admin
+#      password: admin123
+        
+eureka:
+  client:
+    healthcheck: 
+     enabled: true
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
+    enabled: true
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 3
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: true

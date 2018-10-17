@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: 'registry-Server'
+   
+server:
+  port: 8760
+#  default port is 8761
+  
