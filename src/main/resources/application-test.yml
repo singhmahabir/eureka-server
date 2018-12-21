@@ -1,0 +1,44 @@
+info:
+  name: '@project.artifactId@'
+  description: '@project.description@'
+  version: '@project.version@'
+
+management:
+  security:
+    enabled: false
+#spring:
+#  boot:
+#    admin:
+#      url: http://localhost:1111
+#      username: admin
+#      password: admin123
+
+# To change the datacenter and environment in eureka dashboard.
+#archaius:
+#  deployment:
+#    datacenter: Main
+#    environment: pre-prod
+    
+# for "eureka.client" related properties you can go through
+# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaClientConfigBean.java 
+eureka:
+# To change the datacenter and environment in eureka dashboard. both will work
+  datacenter: India
+  environment: prod
+  client:
+    enabled: true # default true
+    registerWithEureka: true #you do not want your instances to be discovered whereas you just want do discover other instances.
+    fetchRegistry: false # Indicates whether this client should fetch eureka registry information from eureka server.
+    serviceUrl: #Map of availability zone to list of fully qualified URLs to communicate with eureka server
+      defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
+    
+
+# for "eureka.instance" related properties you can go through
+# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaInstanceConfigBean.java
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 3
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: true
