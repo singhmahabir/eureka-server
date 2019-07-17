@@ -11,6 +11,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  */
 
 @SpringBootApplication
+
 /*
  * this annotation is required when you need registry server.
  */

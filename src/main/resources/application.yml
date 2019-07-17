@@ -3,15 +3,19 @@ info:
   description: '@project.description@'
   version: '@project.version@'
 
+# If you want to consumed Actuator restricted command 
 management:
   security:
     enabled: false
+    
+
+# If you are using Admin server and want to registered your application as Admin client then add below configuration. 
 #spring:
 #  boot:
 #    admin:
 #      url: http://localhost:1111
 #      username: admin
-#      password: admin123
+#      password: admin123 
 
 # To change the datacenter and environment in eureka dashboard.
 #archaius:
