@@ -37,6 +37,8 @@
 		<groupId>de.codecentric</groupId>
 		<artifactId>spring-boot-admin-starter-client</artifactId>
 	</dependency> -->
+	<!-- required to run refresh end-point if configuration files get changed 
+		and without restarting you can use the changed values -->
 	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
