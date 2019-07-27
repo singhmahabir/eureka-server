@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- *
+ * Main class to start registry server
+ * 
  * @author Mahabir Singh
  *
  */
@@ -13,7 +14,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @SpringBootApplication
 
 /*
- * this annotation is required when you need registry server.
+ * This annotation is required when you need registry server to work.
  */
 @EnableEurekaServer
 public class RegistryServerApplication {
