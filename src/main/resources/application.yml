@@ -1,19 +1,30 @@
+# info property details shows in actuators info url http://localhost:8760/actuator/info
 info:
   name: '@project.artifactId@'
   description: '@project.description@'
   version: '@project.version@'
-
-# If you want to consumed Actuator restricted command 
+  id: reg
+  artifactId: '@project.artifactId@'
+  packaging: '@project.packaging@'
+  groupId: '@project.groupId@'
+# If you want to consumed Actuator restricted command but upto 1.x.x actuator version 
+#management:
+#  security:
+#    enabled: false
+# From 2.x.x you need to use below properties to enable restricted endpoints of actuator
 management:
-  security:
-    enabled: false
-    
+  endpoints:
+    web:
+      exposure:
+        include: "*"        exclude:        - env
+        - beans
 
 # If you are using Admin server and want to registered your application as Admin client then add below configuration. 
 #spring:
 #  boot:
 #    admin:
 #      url: http://localhost:1111
+# below two properties are required when admin server is secured
 #      username: admin
 #      password: admin123 
 
