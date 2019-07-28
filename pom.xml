@@ -23,6 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version><!-- 
 		<spring-boot-admin.version>2.1.6</spring-boot-admin.version> -->
+		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -37,6 +38,7 @@
 		<groupId>de.codecentric</groupId>
 		<artifactId>spring-boot-admin-starter-client</artifactId>
 	</dependency> -->
+	
 	<!-- required to run refresh end-point if configuration files get changed 
 		and without restarting you can use the changed values -->
 	<dependency>
@@ -44,13 +46,14 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
+	
 	<dependencyManagement>
 		<dependencies>
 		<!--This is required when you need to add spring-cloud related configuration -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Greenwich.SR2</version>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

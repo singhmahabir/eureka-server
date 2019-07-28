@@ -7,6 +7,7 @@ info:
   artifactId: '@project.artifactId@'
   packaging: '@project.packaging@'
   groupId: '@project.groupId@'
+  
 # If you want to consumed Actuator restricted command but upto 1.x.x actuator version 
 #management:
 #  security:
