@@ -44,7 +44,7 @@ eureka:
   client:
     enabled: true # default true
     registerWithEureka: true #you do not want your instances to be discovered whereas you just want do discover other instances.
-    fetchRegistry: false # Indicates whether this client should fetch eureka registry information from eureka server.
+    fetchRegistry: true # Indicates whether this client should fetch eureka registry information from eureka server.
     serviceUrl: #Map of availability zone to list of fully qualified URLs to communicate with eureka server
       defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
     
