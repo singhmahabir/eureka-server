@@ -15,15 +15,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.6.RELEASE</version>
+		<version>2.2.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version><!-- 
-		<spring-boot-admin.version>2.1.6</spring-boot-admin.version> -->
-		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		<java.version>1.8</java.version><!-- <spring-boot-admin.version>2.1.6</spring-boot-admin.version> -->
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -33,23 +32,21 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 
-	<!-- when you want to make your application as client of spring admin Service -->
-	<!-- <dependency>
-		<groupId>de.codecentric</groupId>
-		<artifactId>spring-boot-admin-starter-client</artifactId>
-	</dependency> -->
-	
-	<!-- required to run refresh end-point if configuration files get changed 
-		and without restarting you can use the changed values -->
-	<dependency>
+		<!-- when you want to make your application as client of spring admin Service -->
+		<!-- <dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-starter-client</artifactId> 
+			</dependency> -->
+
+		<!-- required to run refresh end-point if configuration files get changed 
+			and without restarting you can use the changed values -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
-		<!--This is required when you need to add spring-cloud related configuration -->
+			<!--This is required when you need to add spring-cloud related configuration -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -58,22 +55,39 @@
 				<scope>import</scope>
 			</dependency>
 			<!--This is required when you need to add spring-boot-admin related configuration -->
-			<!-- <dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-dependencies</artifactId>
-				<version>${spring-boot-admin.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency> -->
+			<!-- <dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-dependencies</artifactId> 
+				<version>${spring-boot-admin.version}</version> <type>pom</type> <scope>import</scope> 
+				</dependency> -->
 		</dependencies>
 	</dependencyManagement>
-	<!--It automatically tries to rewrite archives to make them executable  -->
+	<!--It automatically tries to rewrite archives to make them executable -->
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- docker build plugin to create image name -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<imageName>eureka-server</imageName>
+					<baseImage>java:8</baseImage>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<!-- copy the service's jar file from target into the root directory 
+						of the image -->
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

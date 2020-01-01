@@ -1,3 +1,55 @@
+# To change the datacenter and environment in eureka dashboard.
+#archaius:
+#  deployment:
+#    datacenter: Main
+#    environment: pre-prod
+    
+# for "eureka.client" related properties you can go through
+# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaClientConfigBean.java 
+eureka:
+  dashboard:
+#  below property is used to enable/disable the dashboard byfefault it is enable 
+    enabled: true
+# To change the datacenter and environment in eureka dashboard. both will work
+  datacenter: India
+  environment: prod
+  client:
+    healthcheck:      enabled: true
+    enabled: true # default true
+    registerWithEureka: true #you do not want your instances to be discovered whereas you just want do discover other instances.
+    fetchRegistry: true # Indicates whether this client should fetch eureka registry information from eureka server.
+    serviceUrl: #Map of availability zone to list of fully qualified URLs to communicate with eureka server
+      defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
+#      defaultZone : http://${eureka.instance.hostname}:${random.int}/eureka/
+    
+
+# for "eureka.instance" related properties you can go through
+# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaInstanceConfigBean.java
+  instance:
+# instance is set to eureka client to distinguish between client instance   
+#    instance-id: ${spring.application.name}:${random.int}
+    instance-id: ${spring.application.name}:${server.port}
+    preferIpAddress: true
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 3
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enableSelfPreservation: true
+    
+# If you want to consumed Actuator restricted command but upto 1.x.x actuator version 
+#management:
+#  security:
+#    enabled: false
+# From 2.x.x you need to use below properties to enable restricted endpoints of actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude:
+        - env
+        - beans
+
 # info property details shows in actuators info url http://localhost:8760/actuator/info
 info:
   name: '@project.artifactId@'
@@ -8,53 +60,3 @@ info:
   packaging: '@project.packaging@'
   groupId: '@project.groupId@'
   
-# If you want to consumed Actuator restricted command but upto 1.x.x actuator version 
-#management:
-#  security:
-#    enabled: false
-# From 2.x.x you need to use below properties to enable restricted endpoints of actuator
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"        exclude:        - env
-        - beans
-
-# If you are using Admin server and want to registered your application as Admin client then add below configuration. 
-#spring:
-#  boot:
-#    admin:
-#      url: http://localhost:1111
-# below two properties are required when admin server is secured
-#      username: admin
-#      password: admin123 
-
-# To change the datacenter and environment in eureka dashboard.
-#archaius:
-#  deployment:
-#    datacenter: Main
-#    environment: pre-prod
-    
-# for "eureka.client" related properties you can go through
-# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaClientConfigBean.java 
-eureka:
-# To change the datacenter and environment in eureka dashboard. both will work
-  datacenter: India
-  environment: prod
-  client:
-    enabled: true # default true
-    registerWithEureka: true #you do not want your instances to be discovered whereas you just want do discover other instances.
-    fetchRegistry: true # Indicates whether this client should fetch eureka registry information from eureka server.
-    serviceUrl: #Map of availability zone to list of fully qualified URLs to communicate with eureka server
-      defaultZone : http://${eureka.instance.hostname}:${server.port}/eureka/
-    
-
-# for "eureka.instance" related properties you can go through
-# https://github.com/spring-cloud/spring-cloud-netflix/blob/master/spring-cloud-netflix-eureka-client/src/main/java/org/springframework/cloud/netflix/eureka/EurekaInstanceConfigBean.java
-  instance:
-    hostname: localhost
-    preferIpAddress: true
-    leaseRenewalIntervalInSeconds: 3
-  server:
-    waitTimeInMsWhenSyncEmpty: 0
-    enableSelfPreservation: true

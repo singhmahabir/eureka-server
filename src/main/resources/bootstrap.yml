@@ -4,5 +4,6 @@ spring:
    
 server:
   port: 8760
+#  port: 0 # rando
 #  default port is 8761
-  
+
